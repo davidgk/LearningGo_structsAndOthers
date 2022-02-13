@@ -18,7 +18,44 @@ func TestPerson(t *testing.T) {
 	msg = testCreatePersonWithContactInfo(t)
 	msgs = append(msgs, "when we want create a person with contact info "+msg)
 
+	msg = testCheckReceiverMethod(t)
+	msgs = append(msgs, "When created Person needs to show its data "+msg)
+
+	msg = testWrongWayUpdateName(t)
+	msgs = append(msgs, "When update name wrong way  "+msg)
+
 	test.PrintTestsMessages(msgs)
+}
+
+func testWrongWayUpdateName(t *testing.T) string {
+	msg := "should not update name"
+	firstName := "Alex"
+	lastName := "Anderson"
+	person := d.Person{FirstName: firstName, LastName: lastName}
+	person.WrongUpdateName("jimmy")
+
+	if person.FirstName != firstName {
+		t.Error("error: name shouldn't be updated")
+		msg = " and FAIL"
+	}
+	return msg
+}
+
+func testCheckReceiverMethod(t *testing.T) string {
+	msg := "should be contains a contact with email and zipcode"
+	firstName := "Alex"
+	lastName := "Anderson"
+	email := "myEmail"
+	code := 12345
+	contactInfo := d.ContactInfo{Email: email, ZipCode: code}
+	person := d.Person{FirstName: firstName, LastName: lastName, ContactInfo: contactInfo}
+	values := person.ToStringMainData()
+	expected := "Anderson, Alex - ContactInfo: Email: myEmail, Zipcode: 12345"
+	if len(values) != len(expected) {
+		t.Error("error: not show the correct values")
+		msg = " and FAIL"
+	}
+	return msg
 }
 
 func testCreatePersonWithContactInfo(t *testing.T) string {
