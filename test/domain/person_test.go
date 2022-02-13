@@ -15,7 +15,29 @@ func TestPerson(t *testing.T) {
 	msg = testCreatePerson02(t)
 	msgs = append(msgs, "when we want change person names "+msg)
 
+	msg = testCreatePersonWithContactInfo(t)
+	msgs = append(msgs, "when we want create a person with contact info "+msg)
+
 	test.PrintTestsMessages(msgs)
+}
+
+func testCreatePersonWithContactInfo(t *testing.T) string {
+	msg := "should be contains a contact with email and zipcode"
+	firstName := "Alex"
+	lastName := "Anderson"
+	email := "myEmail"
+	code := 12345
+	contactInfo := d.ContactInfo{Email: email, ZipCode: code}
+	person := d.Person{FirstName: firstName, LastName: lastName, ContactInfo: contactInfo}
+	if person.ContactInfo.Email != email {
+		t.Errorf("error: expected email was %vand got %v", email, contactInfo.Email)
+		msg = " and FAIL"
+	}
+	if person.ContactInfo.ZipCode != code {
+		t.Errorf("error: expected zipcode was %vand got %v", code, contactInfo.ZipCode)
+		msg = " and FAIL"
+	}
+	return msg
 }
 
 func testCreatePerson02(t *testing.T) string {
