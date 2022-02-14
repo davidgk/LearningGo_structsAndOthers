@@ -6,6 +6,6 @@ import (
 
 func PrintTestsMessages(msgs []string) {
 	for _, m := range msgs {
-		fmt.Println(m)
+		fmt.Println("	" + m)
 	}
 }

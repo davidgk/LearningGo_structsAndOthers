@@ -7,19 +7,10 @@ import (
 	"testing"
 )
 
-func TestPerson(t *testing.T) {
-	fmt.Println("Starting Test of Person")
-	msg := testCreatePerson01(t)
-	msgs := []string{"when want to create a Person " + msg}
-
-	msg = testCreatePerson02(t)
-	msgs = append(msgs, "when we want change person names "+msg)
-
-	msg = testCreatePersonWithContactInfo(t)
-	msgs = append(msgs, "when we want create a person with contact info "+msg)
-
-	msg = testCheckReceiverMethod(t)
-	msgs = append(msgs, "When created Person needs to show its data "+msg)
+func TestPersonForUpdate(t *testing.T) {
+	fmt.Println("Starting Test of Person for update")
+	msg := testCheckReceiverMethod(t)
+	msgs := []string{"When created Person needs to show its data " + msg}
 
 	msg = testWrongWayUpdateName(t)
 	msgs = append(msgs, "When update name wrong way  "+msg)
@@ -35,6 +26,17 @@ func TestPerson(t *testing.T) {
 
 	msg = testWaySlicesAreDifferentFromStructs(t)
 	msgs = append(msgs, "When update one slice without pointers "+msg)
+	test.PrintTestsMessages(msgs)
+}
+
+func TestPersonForCreate(t *testing.T) {
+	fmt.Println("Starting Test of Person for create")
+	msg := testCreatePerson01(t)
+	msgs := []string{"when want to create a Person " + msg}
+
+	msg = testCreatePerson02(t)
+	msgs = append(msgs, "when we want change person names "+msg)
+
 	test.PrintTestsMessages(msgs)
 }
 
