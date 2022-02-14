@@ -24,7 +24,80 @@ func TestPerson(t *testing.T) {
 	msg = testWrongWayUpdateName(t)
 	msgs = append(msgs, "When update name wrong way  "+msg)
 
+	msg = testCorrectWayUpdateNameUsingPointer(t)
+	msgs = append(msgs, "When update name correct way with pointers  "+msg)
+
+	msg = testCorrectWayUpdateNameUsingOriginalObject(t)
+	msgs = append(msgs, "When update name correct way with original Object  "+msg)
+
+	msg = testWayUpdateContact(t)
+	msgs = append(msgs, "When update the contact with correct way with pointers  "+msg)
+
+	msg = testWaySlicesAreDifferentFromStructs(t)
+	msgs = append(msgs, "When update one slice without pointers "+msg)
 	test.PrintTestsMessages(msgs)
+}
+
+func testWaySlicesAreDifferentFromStructs(t *testing.T) string {
+	msg := "should update it"
+	someList := []string{"carlos", "julian"}
+	david := "David"
+	updateFirstPositionLists(someList, david)
+	if someList[0] != david {
+		t.Error("error: list should be updated")
+		msg = " and FAIL"
+	}
+	return msg
+}
+
+func updateFirstPositionLists(list []string, david string) {
+	list[0] = david
+}
+
+func testCorrectWayUpdateNameUsingOriginalObject(t *testing.T) string {
+	msg := "should update the name"
+	firstName := "Alex"
+	lastName := "Anderson"
+	person := d.Person{FirstName: firstName, LastName: lastName}
+	updatedName := "jimmy"
+	person.CorrectUpdateName(updatedName)
+	if person.FirstName != updatedName {
+		t.Error("error: name should be updated")
+		msg = " and FAIL"
+	}
+	return msg
+}
+
+func testWayUpdateContact(t *testing.T) string {
+	msg := "should update the contact"
+	firstName := "Alex"
+	lastName := "Anderson"
+	info := d.ContactInfo{Email: "mail", ZipCode: 12345}
+	infoUpdated := d.ContactInfo{Email: "amail", ZipCode: 67891}
+	person := d.Person{FirstName: firstName, LastName: lastName, ContactInfo: info}
+	person.CorrectUpdateContact(infoUpdated)
+	//fmt.Printf("%+v", person)
+	if (person.Email != infoUpdated.Email) || (person.ZipCode != infoUpdated.ZipCode) {
+		t.Error("error: contact should be updated")
+		msg = " and FAIL"
+	}
+	return msg
+}
+
+func testCorrectWayUpdateNameUsingPointer(t *testing.T) string {
+	msg := "should update the name"
+	firstName := "Alex"
+	lastName := "Anderson"
+	person := d.Person{FirstName: firstName, LastName: lastName}
+	updatedName := "jimmy"
+	jimPointer := &person
+	jimPointer.CorrectUpdateName(updatedName)
+	//fmt.Printf("%+v", person)
+	if person.FirstName != updatedName {
+		t.Error("error: name should be updated")
+		msg = " and FAIL"
+	}
+	return msg
 }
 
 func testWrongWayUpdateName(t *testing.T) string {

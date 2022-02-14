@@ -16,3 +16,11 @@ func (p Person) ToStringMainData() string {
 func (p Person) WrongUpdateName(newFirstName string) {
 	p.FirstName = newFirstName
 }
+
+func (p *Person) CorrectUpdateName(newFirstName string) {
+	(*p).FirstName = newFirstName
+}
+
+func (p *Person) CorrectUpdateContact(updated ContactInfo) {
+	(*p).ContactInfo = updated
+}

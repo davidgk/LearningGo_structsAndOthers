@@ -1,0 +1,7 @@
+By Values ( and need pointer):
+
+int , float , string, bool, structs
+
+By Reference ( and NO need pointer):
+
+slices, maps, channels, pointers, functions
