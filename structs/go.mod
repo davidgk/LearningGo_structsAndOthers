@@ -1,5 +1,4 @@
-module mainConcepts
-
+module structs
 
 go 1.17
 
