@@ -19,7 +19,30 @@ func TestTranslatorBots(t *testing.T) {
 	msg = testTranslatorInit(t)
 	msgs = append(msgs, "when we want to test the translator  "+msg)
 
+	msg = testHumorBots(t)
+	msgs = append(msgs, "when we want create bots With Humor  "+msg)
+
 	PrintTestsMessages(msgs)
+}
+func testHumorBots(t *testing.T) string {
+	msg := "should answer they humor"
+	// Given
+	sadness := SenseHumor{Humor: "Sad"}
+	happiness := SenseHumor{Humor: "Happy"}
+
+	sadRobot := SadRobot{HumorStatus: sadness}
+	funnyRobot := FunnyRobot{HumorStatus: happiness}
+
+	engBot := EnglishBot{BotHumor: funnyRobot}
+	spanBot := SpanishBot{BotHumor: sadRobot}
+
+	// When
+	humorEnglish := engBot.RetrieveHumor()
+	humorSpanish := spanBot.RetrieveHumor()
+	// Then
+	require.Equal(t, "Sad", humorSpanish, "Expected false but was true")
+	require.Equal(t, "Happy", humorEnglish, "Expected false but was true")
+	return msg
 }
 
 func testTranslatorInit(t *testing.T) string {
